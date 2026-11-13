@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent Acquisition Team</title>
+
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #102a43;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hero {
+            background: #eaf2f8;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: #087e8b;
+            color: white;
+            padding: 14px 30px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .about {
+            padding: 60px 20px;
+            text-align: center;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .about h2 {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: #102a43;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .reminder-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background: #eaf2f8;
+        }
+
+        .reminder-card {
+            width: 100%;
+            max-width: 560px;
+            padding: 40px 32px;
+            text-align: center;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 12px 35px rgba(16, 42, 67, 0.12);
+        }
+
+        .reminder-label {
+            margin-bottom: 12px;
+            color: #087e8b;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .reminder-card h2 {
+            margin-bottom: 16px;
+            color: #102a43;
+            font-size: 30px;
+        }
+
+        .reminder-message {
+            margin-bottom: 14px;
+            font-size: 17px;
+        }
+
+        .reminder-note {
+            margin-bottom: 26px;
+            color: #52606d;
+            font-size: 15px;
+        }
+
+        .next-button {
+            border: 0;
+            border-radius: 6px;
+            padding: 13px 34px;
+            background: #087e8b;
+            color: #fff;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .next-button:hover {
+            background: #066a75;
+        }
+
+        @media (max-width: 600px) {
+            .reminder-card {
+                padding: 32px 22px;
+            }
+
+            .reminder-card h2 {
+                font-size: 25px;
+            }
+
+            .reminder-message {
+                font-size: 16px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAjfIZJ6d2xcZpK9PiqoGBHtcv5ysG_DZQ",
+            authDomain: "talent-acquisition-team.firebaseapp.com",
+            projectId: "talent-acquisition-team",
+            storageBucket: "talent-acquisition-team.firebasestorage.app",
+            messagingSenderId: "891948846345",
+            appId: "1:891948846345:web:3173bbcb258265b91157d8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+
+    <header id="mainHeader">
+        <h2>Talent Acquisition Team</h2>
+    </header>
+
+    <section class="hero" id="mainHero">
+        <h1>Welcome to Our Talent Acquisition Team</h1>
+        <p>Connecting Talent with Opportunities.</p>
+
+        <a class="apply-btn" href="#reminderPage">
+            Apply Now
+        </a>
+    </section>
+
+    <section class="about" id="mainAbout">
+        <h2>About Us</h2>
+        <p>
+            We are a dedicated recruiting team focused on connecting
+            talented candidates with suitable career opportunities.
+            Our goal is to make the application process simple and accessible.
+        </p>
+    </section>
+
+    <footer id="mainFooter">
+        <p>© 2026 Recruiting Team. All rights reserved.</p>
+    </footer>
+
+    <!-- Only ONE Application Reminder -->
+    <section class="reminder-page" id="reminderPage" hidden>
+        <div class="reminder-card">
+
+            <p class="reminder-label">APPLICATION REMINDER</p>
+
+            <h2>Before You Apply</h2>
+
+            <p class="reminder-message">
+                Please attach your updated CV/Resume to your email
+                before sending your application.
+            </p>
+
+            <p class="reminder-note">
+                You may also include a short introduction about yourself.
+            </p>
+
+            <button class="next-button" type="button"
+                onclick="continueToEmail()">
+                Next
+            </button>
+
+        </div>
+    </section>
+
+    <script>
+        const landingElements = [
+            document.getElementById("mainHeader"),
+            document.getElementById("mainHero"),
+            document.getElementById("mainAbout"),
+            document.getElementById("mainFooter")
+        ];
+
+        function showReminder() {
+            landingElements.forEach(element => {
+                element.hidden = true;
+            });
+
+            document.getElementById("reminderPage").hidden = false;
+
+            window.scrollTo(0, 0);
+        }
+
+        function continueToEmail() {
+            const recipient = "contact.managementjob@gmail.com";
+            const subject = encodeURIComponent("Job Application");
+
+            window.location.href =
+                `mailto:${recipient}?subject=${subject}`;
+        }
+
+        document.querySelector(".apply-btn").addEventListener(
+            "click",
+            function(event) {
+                event.preventDefault();
+                showReminder();
+            }
+        );
+    </script>
+
+</body>
+</html>
